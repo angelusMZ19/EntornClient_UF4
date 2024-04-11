@@ -1,0 +1,13 @@
+.btnClick {
+    background-color: #007bff; 
+}
+.btnClick:hover {
+    background-color: #086179; 
+}
+
+.btnReiniciar{
+    background-color: #5b0876;
+}
+.btnReiniciar:hover {
+    background-color: #c82333; 
+}

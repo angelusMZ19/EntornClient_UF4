@@ -1,0 +1,13 @@
+.Contenedor {
+    text-align: center; /* Alinea el contenido al centro */
+  }
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    height: 100vh; 
+    margin: 0;
+}
+.contador {
+    margin-bottom: 20px;
+}
