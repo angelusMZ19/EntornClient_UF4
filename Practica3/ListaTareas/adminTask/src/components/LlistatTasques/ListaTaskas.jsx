@@ -2,8 +2,9 @@ import React from 'react'
 import { useState } from 'react';
 import Form from '../Fomulari/FormulariTasques';
 import Tareas from '../Tasques/Tareas';
+import './ListaTaskas.css';
 
-function ListaTaskas(props) {
+function ListaTaskas() {
 
     const[tasques, setTasques]= useState([]);
 
@@ -33,14 +34,16 @@ function ListaTaskas(props) {
 
     return (
         <>
-            <h1>Llistat de Tasques</h1>
+            <div className='posicionForm'>
+            <h1>Lista Tareas</h1>
             <Form funcAfegirTasca={afegirTasca} idTasca={tasques.length == 0 ? 0 : (tasques[tasques.length-1].id) + 1}/>
-
+            
             {
                 tasques.map((tasca) => (
                     <Tareas key={tasca.id} id={tasca.id} completada={tasca.completada} titol={tasca.titol} funcEliminarTasca={eliminarTasca} funcCompletarTasca={completarTasca}/>
                 ))
             }
+            </div>
         </>
     )
 }

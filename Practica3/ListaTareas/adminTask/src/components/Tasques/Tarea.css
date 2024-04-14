@@ -1,0 +1,26 @@
+#tasca {
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 5px;
+    margin: 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    size: 50%
+}
+.tascaNoCompletada {
+    background-color:rgb(255, 77, 0);
+    color:aliceblue;   
+}
+
+
+#tasca h2, #tasca svg {
+    margin: 15px;
+}
+
+
+.tascaCompletada {
+    
+    background-color: rgb(204, 239, 123);
+    color: black;
+    text-decoration: line-through;
+}

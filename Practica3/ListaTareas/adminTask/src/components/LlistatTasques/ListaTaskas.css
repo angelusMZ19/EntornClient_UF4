@@ -1,0 +1,7 @@
+.posicionForm {
+    position: fixed;
+    top: 20px; 
+    right: 20px;
+    align-items: center;
+    justify-content: center;
+}
