@@ -1,27 +1,91 @@
 // Claus
 const keys = {
-    api_key: '',
-    session_id: '',
-    account_id: ''
+    api_key: 'ff3c9c2c2742a5233770a5e775a6a7d7',
+    session_id: 'f67051eebbe7d4683d18cadca9b82a00ef50bc4d',
+    account_id: '21215518',
+    auth_token: ' Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZjNjOWMyYzI3NDJhNTIzMzc3MGE1ZTc3NWE2YTdkNyIsInN1YiI6IjY2MWQ2MmU2ZTQ4ODYwMDE4NTNiOWVhZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.AnjmH655qfelG865xIBdnWoBjwpTvkroioZm7vT6iQg'
 }
+
 
 let moviesResult = document.getElementById("moviesResult");
 
+var total_pages = 0;
+var current_page = 1;
+var lastQuery = "";
 
-function setFav(id, favBool){
+async function setFav(id, favBool){
     moviesResult.innerHTML="";
+
+    const options = {
+        method: 'POST',
+        headers: {
+          accept: 'application/json',
+          'content-type':  keys.auth_token
+        },
+        body: JSON.stringify({media_type: 'movie', media_id: id, favorite: favBool})
+    };
+    let url = `https://api.themoviedb.org/3/account/${keys.account_id}/favorite`;
+    let response = await fetch(url, options);
+    let data = await response.json();
+
+    console.log(`${id} marked as ${favBool}`)
 
     showFavs();
 }
 
-function showFavs(){
+async function showFavs(){
     moviesResult.innerHTML="";
 
+    const options = {
+        method: 'GET',
+        headers: {
+          accept: 'application/json',
+          Authorization: keys.auth_token
+        }
+    };
+    let url = `https://api.themoviedb.org/3/account/${keys.account_id}/favorite/movies`;
+    let response = await fetch(url, options);
+    let data = await response.json();
+
+    let movies = data.results;
+    movies.forEach(movie => printMovie(movie, true, false));
 }
 
-function searchMovies(query){
+async function searchMovies(query, clear){
+    if (clear) {
+        moviesResult.innerHTML="";
+        current_page = 1;
+    }
     clearInput();
     removeActive();
+    lastQuery = query;
+
+    const options = {
+        method: 'GET',
+        headers: {
+          accept: 'application/json',
+          Authorization: keys.auth_token
+        }
+    };
+    document.getElementById("loading").hidden = false;
+    let url = `https://api.themoviedb.org/3/search/movie?query=${query}&page=${current_page}`;
+    let response = await fetch(url, options);
+    let data = await response.json();
+
+    console.log(data)
+    total_pages = data.total_pages;
+
+    let movies = data.results;
+    document.getElementById("loading").hidden = true;
+    movies.forEach(async movie => {
+        let url = `https://api.themoviedb.org/3/movie/${movie.id}/account_states`;
+        let response = await fetch(url, options);
+        let data = await response.json();
+
+        if (data.favorite) printMovie(movie, true, false)
+        else printMovie(movie, false, false)
+        
+    });
 }
 
 
@@ -48,12 +112,12 @@ document.getElementById("showWatch").addEventListener("click", function(){
 // Intro a l'input
 document.getElementById("search").addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
-        searchMovies(this.value);
+        searchMovies(this.value, true);
     }
 });
 
 // Click a la lupa
-document.querySelector(".searchBar i").addEventListener("click", ()=>searchMovies(document.getElementById("search").value));
+document.querySelector(".searchBar i").addEventListener("click", ()=>searchMovies(document.getElementById("search").value, true));
 
 // Netejar l'input
 document.getElementById("search").addEventListener('click', ()=>clearInput()); 
@@ -82,3 +146,11 @@ function printMovie(movie, fav, watch){
                                     </div>`;
 }
 
+// Scroll infinit
+window.addEventListener('scroll', () => {
+    const {scrollTop, scrollHeight,clientHeight} = document.documentElement;
+    if (scrollTop + clientHeight >= scrollHeight - 1 && current_page<total_pages) {
+        current_page++;
+        searchMovies(lastQuery, false)
+    }
+});
