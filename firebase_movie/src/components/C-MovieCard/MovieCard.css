@@ -1,0 +1,206 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: #333;
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.form-container {
+    background-color: #ffffff;
+    max-width: 500px;
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    margin: 20px;
+}
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-container label {
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: #444;
+}
+
+.form-container input[type="text"] {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #555;
+}
+
+.form-container input[type="submit"] {
+    padding: 15px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+.form-container input[type="submit"]:hover {
+    background-color: #218838;
+}
+
+.back-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.back-link a {
+    color: #28a745;
+    text-decoration: none;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.back-link a:hover {
+    text-decoration: underline;
+}
+
+.back-link svg {
+    margin-right: 8px;
+    fill: #28a745;
+}
+
+/* MovieCard.css */
+
+.movie {
+    background-color: #ffffff;
+    max-width: 800px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    overflow: hidden;
+    margin: 20px;
+    position: relative; /* Para posicionar el botón de eliminar */
+}
+
+.movieHead {
+    flex: 0 45%;
+    position: relative;
+}
+
+.movieImg {
+    width: 100%;
+    height: auto; 
+    max-width: 200px; 
+    max-height: 300px; 
+    object-fit: cover; 
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    float: left; 
+}
+
+.m_content {
+    flex: 1;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.m_title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.heading_primary {
+    margin: 0;
+}
+
+.m_nota {
+    font-size: 14px;
+    color: #fff;
+    background-color: royalblue;
+    padding: 5px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+}
+
+.m_desc {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.m_details {
+    display: flex;
+    align-items: center;
+    margin-top: auto;
+}
+
+.m_detail {
+    font-size: 14px;
+    color: #999;
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+/* Botón de eliminar */
+.delete {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: red;
+    transition: color 0.3s ease;
+}
+
+.delete:hover {
+    color: darkred;
+}
+
+@media screen and (max-width: 768px) {
+    .movie {
+        flex-direction: column;
+    }
+
+    .movieHead {
+        flex: 1 0 auto;
+        max-height: 300px;
+    }
+
+    .movieImg {
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .m_content {
+        flex: 1;
+        padding: 20px;
+    }
+}
