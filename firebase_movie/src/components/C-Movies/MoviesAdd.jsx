@@ -29,7 +29,7 @@ function MoviesAdd(props) {
         try {
             const peliRef = collection(db, 'dbPelis')
             await setDoc(doc(peliRef), formData);
-            console.log("Añade Pelicula");
+            alert("Añadida Pelicula");
         } catch (error) {
             console.error('Error: ', error);
         }
